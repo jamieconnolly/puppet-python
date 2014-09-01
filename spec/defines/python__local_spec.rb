@@ -20,19 +20,6 @@ describe "python::local" do
     end
   end
 
-  context "ensure => present, version => v1.0" do
-    let(:params) { {
-      :ensure  => "present",
-      :version => "v1.0"
-    } }
-
-    it do
-      expect {
-        should contain_file("/path/to/a/thing/.node-version")
-      }.to raise_error(Puppet::Error, /version must be of the form X\.Y\.Z, is v1\.0/)
-    end
-  end
-
   context "ensure => absent" do
     let(:params) { {
       :ensure  => "absent"
@@ -51,7 +38,7 @@ describe "python::local" do
     it do
       expect {
         should contain_file("/path/to/a/thing/.node-version")
-      }.to raise_error(Puppet::Error, /ensure must be present|absent, is whatever/)
+      }.to raise_error(Puppet::Error, /does not match/)
     end
   end
 end

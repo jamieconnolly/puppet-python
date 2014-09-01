@@ -10,12 +10,10 @@ define python::local(
   $version = undef
 ) {
 
-  validate_re($ensure, '^(present|absent)$',
-    "Python::Local[${name}] ensure must be present|absent, is ${ensure}")
+  validate_re($ensure, '^(present|absent)$')
 
   if $ensure == 'present' {
-    validate_re($version, '^\d+\.\d+(\.\d+)*$',
-      "Python::Local[${name}] version must be of the form X.Y.Z, is ${version}")
+    validate_string($version)
 
     ensure_resource('python::version', $version)
   }
