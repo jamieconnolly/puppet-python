@@ -1,0 +1,3 @@
+---
+python::installdir: "%{boxen::config::home}/pyenv"
+python::user:       "%{::boxen_user}"

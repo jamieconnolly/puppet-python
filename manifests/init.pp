@@ -1,42 +1,47 @@
-# Install python from homebrew.
+# Public: Install a pyenv-driven Python stack.
 #
 # Usage:
 #
 #     include python
-class python {
-  include boxen::config
-  include homebrew
-  include homebrew::config
-  include xquartz
-  include python::config
 
-  $version = '2.7.3-boxen2'
+class python(
+  $ensure = undef,
+  $installdir = undef,
+  $user = undef
+) {
 
-  homebrew::formula { 'python':
-    before => Package['boxen/brews/python']
+  validate_re($ensure, '^(present|absent)$')
+  validate_string($installdir, $user)
+
+  if $::osfamily == 'Darwin' {
+    include boxen::config
   }
 
-  package { 'boxen/brews/python':
-    ensure  => $version,
-    require => Class['xquartz']
+  repository { $installdir:
+    ensure => $ensure,
+    force  => true,
+    source => 'yyuu/pyenv',
+    user   => $user
   }
 
-  file {
-    "${homebrew::config::installdir}/lib/python2.7":
-      ensure => directory ;
-    "${homebrew::config::installdir}/lib/python2.7/site-packages":
-      ensure  => link,
-      force   => true,
-      target  => "${homebrew::config::installdir}/Cellar/python/${version}/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages",
-      require => Package['boxen/brews/python'] ;
+  file { "${installdir}/versions":
+    ensure  => symlink,
+    force   => true,
+    backup  => false,
+    target  => '/opt/python',
+    require => Repository[$installdir]
   }
 
-  boxen::env_script { 'python':
-    priority => 'lower',
-    source   => 'puppet:///modules/python/python.sh',
+  if $::osfamily == 'Darwin' {
+    boxen::env_script { 'python':
+      content  => template('python/env.sh.erb'),
+      priority => 'higher'
+    }
   }
 
-  file { "${boxen::config::envdir}/python.sh":
-    ensure => absent,
+  file { '/opt/python':
+    ensure => directory,
+    owner  => $user
   }
+
 }

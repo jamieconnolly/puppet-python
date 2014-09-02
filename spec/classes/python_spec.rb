@@ -1,24 +1,38 @@
-require 'spec_helper'
+require "spec_helper"
 
-describe 'python' do
-  let(:facts) do
-    {
-      :boxen_home => '/opt/boxen'
-    }
-  end
+describe "python" do
+  let(:facts) { default_test_facts }
+  let(:params) { {
+    :ensure     => "present",
+    :installdir => "/test/boxen/pyenv",
+  } }
 
   it do
-    should include_class('homebrew')
-    should include_class('xquartz')
-    should include_class('boxen::config')
-
-    should contain_homebrew__formula('python').with(
-      :before => 'Package[boxen/brews/python]'
-    )
-    should contain_package('boxen/brews/python').with_ensure('2.7.3-boxen2')
-
-    should contain_file('/opt/boxen/env.d/python.sh').with(
-      :source => 'puppet:///modules/python/python.sh'
-    )
+    should contain_repository('/test/boxen/pyenv').with({
+      :ensure => "present",
+      :user   => "testuser"
+    })
+    should contain_file('/test/boxen/pyenv/versions').with_ensure("symlink")
+    should contain_file("/opt/python").with({
+      :ensure => "directory",
+      :owner  => "testuser",
+    })
   end
+
+  context "osfamily => Darwin" do
+    it do
+      should include_class("boxen::config")
+      should contain_boxen__env_script("python")
+    end
+  end
+
+  context "osfamily => Debian" do
+    let(:facts) { default_test_facts.merge(:osfamily => "Debian") }
+
+    it do
+      should_not include_class("boxen::config")
+      should_not contain_boxen__env_script("python")
+    end
+  end
+
 end
