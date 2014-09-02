@@ -1,3 +1,3 @@
 ---
-python::installdir: "%{boxen::config::home}/pyenv"
-python::user:       "%{::boxen_user}"
+python::prefix: "%{::boxen::config::home}"
+python::user:   "%{::boxen_user}"
