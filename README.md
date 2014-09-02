@@ -4,16 +4,14 @@
 
 ## Usage
 
-For now this is lightweight.
-We'll want to add virtualenv support someday.
-
 ```puppet
 include python
 ```
 
 ## Required Puppet Modules
 
-* `boxen`
-* `homebrew`
-* `stdlib`
-* `xquartz`
+* `boxen`, >= 3.1
+* `java`, >= 1.2
+* `module-data`
+* `repository`, >= 2.2
+* `stdlib`, >= 4.0

@@ -1,6 +1,6 @@
 ---
-python::prefix: /opt
-python::user:   "%{::id}"
+python::prefix:        /opt
+python::user:          "%{::id}"
 
 python::pyenv::ensure: v20140825
 python::pyenv::prefix: "%{hiera('python::prefix')}/pyenv"

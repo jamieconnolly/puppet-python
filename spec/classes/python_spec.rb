@@ -10,7 +10,7 @@ describe "python" do
 
   context "osfamily => Darwin" do
     it do
-      should include_class("boxen::config")
+      should contain_class("boxen::config")
       should contain_boxen__env_script("python")
 
       should contain_file("/opt/python").with({
@@ -24,7 +24,7 @@ describe "python" do
     let(:facts) { default_test_facts.merge(:osfamily => "Debian", :id => "root") }
 
     it do
-      should_not include_class("boxen::config")
+      should_not contain_class("boxen::config")
       should_not contain_boxen__env_script("python")
 
       should contain_file("/opt/python").with({
