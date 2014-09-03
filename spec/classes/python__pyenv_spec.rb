@@ -9,6 +9,7 @@ describe "python::pyenv" do
   } }
 
   it do
+    should contain_class("python")
     should contain_repository("/test/boxen/pyenv").with({
       :ensure => "v20140825",
       :user   => "testuser",

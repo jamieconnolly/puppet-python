@@ -15,7 +15,6 @@ describe "python::local" do
       should contain_file("/path/to/a/thing/.python-version").with({
         :ensure => "present",
         :content => "2.7.8\n",
-        :replace => true
       })
     end
   end
