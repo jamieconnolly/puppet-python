@@ -36,8 +36,8 @@ define python::version(
 
   $hierdata = hiera_hash('python::version::env', {})
 
-  if has_key($hierdata, $::osfamily) {
-    $os_env = $hierdata[$::osfamily]
+  if has_key($hierdata, $::operatingsystem) {
+    $os_env = $hierdata[$::operatingsystem]
   } else {
     $os_env = {}
   }

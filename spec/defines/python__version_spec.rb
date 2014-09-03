@@ -38,7 +38,8 @@ describe "python::version" do
     context "when env is default" do
       it do
         should contain_python("2.7.8").with_environment({
-          "CC" => "/usr/bin/cc",
+          "CC"         => "/usr/bin/cc",
+          "FROM_HIERA" => "true",
         })
       end
     end
@@ -50,8 +51,9 @@ describe "python::version" do
 
       it do
         should contain_python("2.7.8").with_environment({
-          "CC"       => "/usr/bin/cc",
-          "SOME_VAR" => "flocka",
+          "CC"         => "/usr/bin/cc",
+          "FROM_HIERA" => "true",
+          "SOME_VAR"   => "flocka",
         })
       end
     end
