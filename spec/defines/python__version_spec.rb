@@ -35,6 +35,17 @@ describe "python::version" do
       end
     end
 
+    context "use alias" do
+      let(:title) { "2.7" }
+
+      it do
+        should contain_python__alias("2.7").with({
+          :ensure => "present",
+          :to     => "2.7.8",
+        })
+      end
+    end
+
     context "when env is default" do
       it do
         should contain_python("2.7.8").with_environment({

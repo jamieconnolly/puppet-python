@@ -21,7 +21,7 @@ describe "python::local" do
 
   context "ensure => absent" do
     let(:params) { {
-      :ensure  => "absent"
+      :ensure => "absent"
     } }
 
     it do
@@ -31,7 +31,7 @@ describe "python::local" do
 
   context "ensure => whatever" do
     let(:params) { {
-      :ensure  => "whatever"
+      :ensure => "whatever"
     } }
 
     it do

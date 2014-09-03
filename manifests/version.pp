@@ -15,47 +15,60 @@ define python::version(
 
   require python
 
-  case $version {
-    /jython/: { require java }
-    default: { }
-  }
+  $alias_hash = hiera_hash('python::version::alias', {})
 
-  if $::osfamily == 'Darwin' {
-    require xquartz
+  if has_key($alias_hash, $version) {
+    $to = $alias_hash[$version]
 
-    include boxen::config
-    include homebrew::config
-
-    ensure_resource('package', 'readline')
-    Package['readline'] -> Python <| |>
-  }
-
-  $default_env = {
-    'CC' => '/usr/bin/cc',
-  }
-
-  $hierdata = hiera_hash('python::version::env', {})
-
-  if has_key($hierdata, $::operatingsystem) {
-    $os_env = $hierdata[$::operatingsystem]
+    python::alias { $version:
+      ensure => $ensure,
+      to     => $to
+    }
   } else {
-    $os_env = {}
-  }
 
-  if has_key($hierdata, $version) {
-    $version_env = $hierdata[$version]
-  } else {
-    $version_env = {}
-  }
+    case $version {
+      /jython/: { require java }
+      default: { }
+    }
 
-  $_env = merge(merge(merge($default_env, $os_env), $version_env), $env)
+    if $::osfamily == 'Darwin' {
+      require xquartz
 
-  python { $version:
-    ensure      => $ensure,
-    environment => $_env,
-    provider    => pyenv,
-    pyenv_root  => $python::pyenv::prefix,
-    user        => $python::user
+      include boxen::config
+      include homebrew::config
+
+      ensure_resource('package', 'readline')
+      Package['readline'] -> Python <| |>
+    }
+
+    $default_env = {
+      'CC' => '/usr/bin/cc',
+    }
+
+    $hierdata = hiera_hash('python::version::env', {})
+
+    if has_key($hierdata, $::operatingsystem) {
+      $os_env = $hierdata[$::operatingsystem]
+    } else {
+      $os_env = {}
+    }
+
+    if has_key($hierdata, $version) {
+      $version_env = $hierdata[$version]
+    } else {
+      $version_env = {}
+    }
+
+    $_env = merge(merge(merge($default_env, $os_env), $version_env), $env)
+
+    python { $version:
+      ensure      => $ensure,
+      environment => $_env,
+      provider    => pyenv,
+      pyenv_root  => $python::pyenv::prefix,
+      user        => $python::user
+    }
+
   }
 
 }
