@@ -6,7 +6,7 @@
 #     python::local { '/path/to/a/thing': version => '2.7.8' }
 
 define python::local(
-  $ensure  = present,
+  $ensure = present,
   $version = undef
 ) {
 

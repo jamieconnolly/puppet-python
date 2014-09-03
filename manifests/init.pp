@@ -29,7 +29,6 @@ class python(
     owner  => $user
   }
 
-  Class['python::pyenv'] ->
-    Python <| |>
+  Class['python::pyenv'] -> Python <| |>
 
 }
