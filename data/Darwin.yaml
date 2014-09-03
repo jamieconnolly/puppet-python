@@ -1,3 +1,8 @@
 ---
 python::prefix: "%{::boxen::config::home}"
 python::user:   "%{::boxen_user}"
+
+python::version::env:
+  Darwin:
+    CFLAGS:  "-I%{::homebrew::config::installdir}/include -I/opt/X11/include"
+    LDFLAGS: "-L%{::homebrew::config::installdir}/lib -L/opt/X11/lib"
