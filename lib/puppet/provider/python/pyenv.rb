@@ -1,8 +1,6 @@
 Puppet::Type.type(:python).provide(:pyenv) do
   desc "Install a Python version through `pyenv`."
 
-  commands :pyenv => "pyenv"
-
   def self.pythonlist
     @pythonlist ||= Dir["/opt/python/*"].map do |python|
       if File.directory?(python) && File.executable?("#{python}/bin/python")
@@ -31,13 +29,11 @@ Puppet::Type.type(:python).provide(:pyenv) do
   end
 
   def create
-    command = [command(:pyenv), "install", version]
-    execute(command, command_opts)
+    execute([command, "install", version], command_opts)
   end
 
   def destroy
-    command = [command(:pyenv), "uninstall", "--force", version]
-    execute(command, command_opts)
+    execute([command, "uninstall", "--force", version], command_opts)
   end
 
   def cache_path
@@ -52,7 +48,6 @@ Puppet::Type.type(:python).provide(:pyenv) do
     return @environment if defined?(@environment)
 
     @environment = Hash.new
-    @environment["PATH"] = "#{pyenv_root}/bin:/usr/bin:/bin:/usr/sbin:/sbin"
     @environment["PYENV_ROOT"] = pyenv_root
     @environment["PYTHON_BUILD_CACHE_PATH"] = cache_path
     @environment.merge!(@resource[:environment])
@@ -64,6 +59,10 @@ Puppet::Type.type(:python).provide(:pyenv) do
 
   def version
     @resource[:version]
+  end
+
+  def command
+    "#{pyenv_root}/bin/pyenv"
   end
 
   def command_opts
