@@ -2,3 +2,4 @@
 :hierarchy:
   - "%{::osfamily}"
   - common
+:merge_behavior: deeper
