@@ -1,4 +1,6 @@
 ---
+python::prefix: "%{::boxen_home}"
+
 python::version::env:
   "2.7.8":
     FROM_HIERA: 'true'
