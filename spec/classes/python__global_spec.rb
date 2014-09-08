@@ -7,6 +7,7 @@ describe "python::global" do
     let(:params) { { :version => "system" } }
 
     it do
+      should_not contain_python__version("system")
       should contain_file("/test/boxen/pyenv/version").with({
         :content => "system\n",
         :owner   => "testuser",
@@ -19,6 +20,7 @@ describe "python::global" do
     let(:params) { { :version => "2.7.8" } }
 
     it do
+      should contain_python__version("2.7.8")
       should contain_file("/test/boxen/pyenv/version").with({
         :content => "2.7.8\n",
         :owner   => "testuser",

@@ -79,9 +79,7 @@ describe "python::version" do
   end
 
   context "ensure => absent" do
-    let(:params) { {
-      :ensure  => "absent"
-    } }
+    let(:params) { { :ensure  => "absent" } }
 
     it do
       should contain_class("python")
@@ -90,9 +88,7 @@ describe "python::version" do
   end
 
   context "ensure => whatever" do
-    let(:params) { {
-      :ensure  => "whatever"
-    } }
+    let(:params) { { :ensure  => "whatever" } }
 
     it do
       expect {

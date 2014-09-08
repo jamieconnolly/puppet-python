@@ -1,4 +1,4 @@
-# Public: Alias a (usually shorter) python version to another
+# Public: Alias a (usually shorter) python version to another.
 #
 # Usage:
 #

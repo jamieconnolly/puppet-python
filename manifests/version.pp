@@ -34,8 +34,8 @@ define python::version(
     if $::osfamily == 'Darwin' {
       require xquartz
 
-      include boxen::config
       include homebrew::config
+      include boxen::config
 
       ensure_resource('package', 'readline')
       Package['readline'] -> Python <| |>

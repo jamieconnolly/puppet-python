@@ -12,7 +12,7 @@ describe "python::alias" do
 
   context "ensure => present" do
     it do
-      should contain_python("2.7.8")
+      should contain_python__version("2.7.8")
       should contain_file("/opt/python/2.7").with({
         :ensure => "symlink",
         :force  => true,
@@ -25,7 +25,7 @@ describe "python::alias" do
     let(:params) { test_params.merge(:ensure => "absent") }
 
     it do
-      should_not contain_python("2.7.8")
+      should_not contain_python__version("2.7.8")
       should contain_file("/opt/python/2.7").with_ensure("absent")
     end
   end
