@@ -7,7 +7,8 @@
 class python::pyenv(
   $ensure = undef,
   $prefix = undef,
-  $user = undef
+  $user = undef,
+  $plugins = {}
 ) {
 
   validate_string($ensure, $prefix, $user)
@@ -28,5 +29,9 @@ class python::pyenv(
     target  => '/opt/python',
     require => Repository[$prefix]
   }
+
+  create_resources('python::pyenv::plugin', $plugins, {})
+
+  Repository[$prefix] -> Python::Pyenv::Plugin <| |>
 
 }

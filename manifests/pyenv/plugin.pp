@@ -17,10 +17,10 @@ define python::pyenv::plugin(
   include python::pyenv
 
   repository { "${python::pyenv::prefix}/plugins/${name}":
-    ensure => $ensure,
-    force  => true,
-    source => $source,
-    user   => $python::user,
+    ensure  => $ensure,
+    force   => true,
+    source  => $source,
+    user    => $python::user,
     require => Repository[$python::pyenv::prefix]
   }
 

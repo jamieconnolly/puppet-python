@@ -15,5 +15,10 @@ describe "python::pyenv" do
       :user   => "testuser",
     })
     should contain_file("/test/boxen/pyenv/versions").with_ensure("symlink")
+
+    should contain_python__pyenv__plugin("virtualenv").with({
+      :ensure => "present",
+      :source => "yyuu/pyenv-virtualenv",
+    })
   end
 end
