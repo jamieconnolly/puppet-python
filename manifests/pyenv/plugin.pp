@@ -2,12 +2,15 @@
 #
 # Usage:
 #
-#     python::pyenv::plugin { 'pyenv-update':
+#     python::pyenv::plugin { 'update':
 #       ensure => present,
 #       source => 'yyuu/pyenv-update'
 #     }
 
-define python::pyenv::plugin($ensure, $source) {
+define python::pyenv::plugin(
+  $ensure,
+  $source
+) {
 
   validate_string($ensure, $source)
 
@@ -17,7 +20,8 @@ define python::pyenv::plugin($ensure, $source) {
     ensure => $ensure,
     force  => true,
     source => $source,
-    user   => $python::user
+    user   => $python::user,
+    require => Repository[$python::pyenv::prefix]
   }
 
 }

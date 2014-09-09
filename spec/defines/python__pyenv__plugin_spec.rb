@@ -8,12 +8,12 @@ describe "python::pyenv::plugin" do
 
   let(:facts) { default_test_facts }
   let(:params) { test_params }
-  let(:title) { "pyenv-update" }
+  let(:title) { "update" }
 
   context "ensure => present" do
     it do
       should contain_class("python::pyenv")
-      should contain_repository("/test/boxen/pyenv/plugins/pyenv-update").with({
+      should contain_repository("/test/boxen/pyenv/plugins/update").with({
         :ensure => "present",
         :source => "yyuu/pyenv-update",
         :user   => "testuser",
