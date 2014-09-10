@@ -7,6 +7,9 @@ python::pyenv::prefix: "%{hiera('python::prefix')}/pyenv"
 python::pyenv::user:   "%{hiera('python::user')}"
 
 python::pyenv::plugins:
+  pip-rehash:
+    ensure: present
+    source: yyuu/pyenv-pip-rehash
   virtualenv:
     ensure: present
     source: yyuu/pyenv-virtualenv
