@@ -12,10 +12,11 @@ define python::local(
 
   validate_re($ensure, '^(present|absent)$')
 
-  if $ensure == 'present' {
-    validate_string($version)
-
+  if $version != 'system' {
     ensure_resource('python::version', $version)
+    $require = Python::Version[$version]
+  } else {
+    $require = undef
   }
 
   validate_absolute_path($name)
@@ -23,7 +24,8 @@ define python::local(
   file { "${name}/.python-version":
     ensure  => $ensure,
     content => "${version}\n",
-    replace => true
+    replace => true,
+    require => $require
   }
 
 }

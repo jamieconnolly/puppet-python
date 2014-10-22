@@ -5,9 +5,9 @@
 #     include python::pyenv
 
 class python::pyenv(
-  $ensure = undef,
-  $prefix = undef,
-  $user = undef,
+  $ensure = $python::pyenv::ensure,
+  $prefix = $python::pyenv::prefix,
+  $user = $python::pyenv::user,
   $plugins = {}
 ) {
 

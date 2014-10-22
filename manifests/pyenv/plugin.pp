@@ -7,10 +7,7 @@
 #       source => 'yyuu/pyenv-update'
 #     }
 
-define python::pyenv::plugin(
-  $ensure,
-  $source
-) {
+define python::pyenv::plugin($ensure, $source) {
 
   validate_string($ensure, $source)
 

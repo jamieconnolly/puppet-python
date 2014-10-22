@@ -3,22 +3,28 @@ require "spec_helper"
 describe "python::pyenv" do
   let(:facts) { default_test_facts }
   let(:params) { {
-    :ensure => "v20140825",
-    :prefix => "/test/boxen/pyenv",
-    :user   => "testuser",
+    :ensure  => "v20141012",
+    :prefix  => "/test/boxen/pyenv",
+    :user    => "testuser",
+    :plugins => {
+      "pip-rehash" => {
+        "ensure" => "present",
+        "source" => "yyuu/pyenv-pip-rehash"
+      }
+    }
   } }
 
   it do
     should contain_class("python")
     should contain_repository("/test/boxen/pyenv").with({
-      :ensure => "v20140825",
+      :ensure => "v20141012",
       :user   => "testuser",
     })
     should contain_file("/test/boxen/pyenv/versions").with_ensure("symlink")
 
-    should contain_python__pyenv__plugin("virtualenv").with({
+    should contain_python__pyenv__plugin("pip-rehash").with({
       :ensure => "present",
-      :source => "yyuu/pyenv-virtualenv",
+      :source => "yyuu/pyenv-pip-rehash",
     })
   end
 end

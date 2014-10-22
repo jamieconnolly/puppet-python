@@ -1,5 +1,4 @@
 Puppet::Type.newtype(:python) do
-
   ensurable do
     newvalue(:present) do
       provider.create
@@ -39,15 +38,6 @@ Puppet::Type.newtype(:python) do
     end
   end
 
-  newparam(:pyenv_root) do
-    validate do |value|
-      unless value.is_a? String
-        raise Puppet::ParseError,
-          "Expected pyenv_root to be a String, got #{value.class.name}"
-      end
-    end
-  end
-
   newparam(:user) do
     defaultto Facter.value(:id)
   end
@@ -63,4 +53,15 @@ Puppet::Type.newtype(:python) do
     end
   end
 
+  autorequire :file do
+    %w(/opt/python)
+  end
+
+  autorequire :user do
+    Array.new.tap do |a|
+      if @parameters.include?(:user) && user = @parameters[:user].to_s
+        a << user if catalog.resource(:user, user)
+      end
+    end
+  end
 end

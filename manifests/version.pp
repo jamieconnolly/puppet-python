@@ -25,7 +25,6 @@ define python::version(
       to     => $to
     }
   } else {
-
     case $version {
       /jython/: { require java }
       default: { }
@@ -42,7 +41,8 @@ define python::version(
     }
 
     $default_env = {
-      'CC' => '/usr/bin/cc',
+      'CC'         => '/usr/bin/cc',
+      'PYENV_ROOT' => $python::pyenv::prefix
     }
 
     $hierdata = hiera_hash('python::version::env', {})
@@ -65,10 +65,8 @@ define python::version(
       ensure      => $ensure,
       environment => $_env,
       provider    => pyenv,
-      pyenv_root  => $python::pyenv::prefix,
       user        => $python::user
     }
-
   }
 
 }

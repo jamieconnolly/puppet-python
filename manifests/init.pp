@@ -5,8 +5,8 @@
 #     include python
 
 class python(
-  $prefix = undef,
-  $user = undef
+  $prefix = $python::prefix,
+  $user = $python::user
 ) {
 
   validate_string($prefix, $user)
@@ -29,6 +29,6 @@ class python(
     owner  => $user
   }
 
-  Python::Definition <| |> -> Class['python::pyenv'] -> Python <| |>
+  Class['python::pyenv'] -> Python::Definition <| |> -> Python <| |>
 
 }

@@ -16,6 +16,7 @@ describe "python::local" do
       should contain_file("/path/to/a/thing/.python-version").with({
         :ensure => "present",
         :content => "2.7.8\n",
+        :replace => true,
       })
     end
   end
@@ -24,7 +25,6 @@ describe "python::local" do
     let(:params) { test_params.merge(:ensure => "absent") }
 
     it do
-      should_not contain_python__version("2.7.8")
       should contain_file("/path/to/a/thing/.python-version").with_ensure("absent")
     end
   end
