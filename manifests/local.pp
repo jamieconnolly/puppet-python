@@ -7,6 +7,7 @@
 
 define python::local(
   $ensure = present,
+  $file = '.python-version',
   $version = undef
 ) {
 
@@ -21,7 +22,7 @@ define python::local(
 
   validate_absolute_path($name)
 
-  file { "${name}/.python-version":
+  file { "${name}/${file}":
     ensure  => $ensure,
     content => "${version}\n",
     replace => true,

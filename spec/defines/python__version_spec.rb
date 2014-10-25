@@ -51,6 +51,7 @@ describe "python::version" do
         should contain_python("2.7.8").with_environment({
           "CC"         => "/usr/bin/cc",
           "FROM_HIERA" => "true",
+          "PYENV_ROOT" => "/test/boxen/pyenv",
         })
       end
     end
@@ -64,6 +65,7 @@ describe "python::version" do
         should contain_python("2.7.8").with_environment({
           "CC"         => "/usr/bin/cc",
           "FROM_HIERA" => "true",
+          "PYENV_ROOT" => "/test/boxen/pyenv",
           "SOME_VAR"   => "flocka",
         })
       end

@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe "python::local" do
   let(:test_params) { {
-    :ensure => "present",
+    :ensure  => "present",
     :version => "2.7.8",
   } }
 
@@ -14,7 +14,7 @@ describe "python::local" do
     it do
       should contain_python__version("2.7.8")
       should contain_file("/path/to/a/thing/.python-version").with({
-        :ensure => "present",
+        :ensure  => "present",
         :content => "2.7.8\n",
         :replace => true,
       })
