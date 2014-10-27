@@ -37,7 +37,7 @@ The following variables may be automatically overridden with Hiera:
 
 # Pyenv plugins to install by default
 "python::pyenv::plugins":
-  "virtualenv":
+  "pyenv-virtualenv":
     "ensure": "present"
     "source": "yyuu/pyenv-virtualenv"
 
