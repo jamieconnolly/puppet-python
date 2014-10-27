@@ -7,7 +7,6 @@
 
 define python::local(
   $ensure = present,
-  $file = '.python-version',
   $version = undef
 ) {
 
@@ -22,7 +21,9 @@ define python::local(
 
   validate_absolute_path($name)
 
-  file { "${name}/${file}":
+  $local_file = hiera('python::local::file', '.python-version')
+
+  file { "${name}/${local_file}":
     ensure  => $ensure,
     content => "${version}\n",
     replace => true,

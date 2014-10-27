@@ -11,7 +11,6 @@ define python::virtualenv(
   $ensure = present,
   $dir = undef,
   $env = {},
-  $file = '.python-version',
   $python = undef,
   $user = $python::user
 ) {
@@ -19,7 +18,7 @@ define python::virtualenv(
   validate_absolute_path($dir)
   validate_hash($env)
   validate_re($ensure, '^(present|absent)$')
-  validate_string($file, $user)
+  validate_string($user)
 
   include python::pyenv
 
@@ -42,7 +41,9 @@ define python::virtualenv(
     user        => $user,
   }
 
-  file { "${dir}/${file}":
+  $virtualenv_file = hiera('python::virtualenv::file', '.python-version')
+
+  file { "${dir}/${virtualenv_file}":
     ensure  => $ensure,
     content => "${name}\n",
     replace => true,
