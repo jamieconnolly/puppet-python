@@ -7,6 +7,7 @@
 class python::pyenv(
   $ensure = $python::pyenv::ensure,
   $prefix = $python::pyenv::prefix,
+  $source = $python::pyenv::source,
   $user = $python::pyenv::user,
   $plugins = {}
 ) {
@@ -18,7 +19,7 @@ class python::pyenv(
   repository { $prefix:
     ensure => $ensure,
     force  => true,
-    source => 'yyuu/pyenv',
+    source => $source,
     user   => $user
   }
 

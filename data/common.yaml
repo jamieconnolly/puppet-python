@@ -4,6 +4,7 @@ python::user:          "%{::id}"
 
 python::pyenv::ensure: v20141012
 python::pyenv::prefix: "%{hiera('python::prefix')}/pyenv"
+python::pyenv::source: yyuu/pyenv
 python::pyenv::user:   "%{hiera('python::user')}"
 
 python::version::alias:
