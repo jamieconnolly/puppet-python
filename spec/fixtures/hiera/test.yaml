@@ -1,6 +1,11 @@
 ---
 python::prefix: "%{::boxen_home}"
 
+python::pyenv::plugins:
+  pyenv-pip-rehash:
+    ensure: present
+    source: yyuu/pyenv-pip-rehash
+
 python::version::env:
   "2.7.8":
     FROM_HIERA: true

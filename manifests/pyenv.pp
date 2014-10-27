@@ -8,8 +8,7 @@ class python::pyenv(
   $ensure = $python::pyenv::ensure,
   $prefix = $python::pyenv::prefix,
   $source = $python::pyenv::source,
-  $user = $python::pyenv::user,
-  $plugins = {}
+  $user = $python::pyenv::user
 ) {
 
   validate_string($ensure, $prefix, $user)
@@ -31,7 +30,8 @@ class python::pyenv(
     require => Repository[$prefix]
   }
 
-  create_resources('python::pyenv::plugin', $plugins, {})
+  $plugins_hash = hiera_hash('python::pyenv::plugins', {})
+  create_resources('python::pyenv::plugin', $plugins_hash)
 
   Repository[$prefix] -> Python::Pyenv::Plugin <| |>
 

@@ -6,12 +6,6 @@ describe "python::pyenv" do
     :ensure  => "v20141012",
     :prefix  => "/test/boxen/pyenv",
     :user    => "testuser",
-    :plugins => {
-      "pip-rehash" => {
-        "ensure" => "present",
-        "source" => "yyuu/pyenv-pip-rehash"
-      }
-    }
   } }
 
   it do
@@ -22,7 +16,7 @@ describe "python::pyenv" do
     })
     should contain_file("/test/boxen/pyenv/versions").with_ensure("symlink")
 
-    should contain_python__pyenv__plugin("pip-rehash").with({
+    should contain_python__pyenv__plugin("pyenv-pip-rehash").with({
       :ensure => "present",
       :source => "yyuu/pyenv-pip-rehash",
     })

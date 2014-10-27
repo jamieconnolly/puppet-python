@@ -7,6 +7,14 @@ python::pyenv::prefix: "%{hiera('python::prefix')}/pyenv"
 python::pyenv::source: yyuu/pyenv
 python::pyenv::user:   "%{hiera('python::user')}"
 
+python::pyenv::plugins:
+  pyenv-pip-rehash:
+    ensure: v0.0.4
+    source: yyuu/pyenv-pip-rehash
+  pyenv-virtualenv:
+    ensure: v20141012
+    source: yyuu/pyenv-virtualenv
+
 python::version::alias:
   "2.6":   2.6.9
   "2.7":   2.7.8
