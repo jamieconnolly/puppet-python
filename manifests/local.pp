@@ -14,9 +14,9 @@ define python::local(
 
   if $version != 'system' {
     ensure_resource('python::version', $version)
-    $require = Python::Version[$version]
+    $_require = Python::Version[$version]
   } else {
-    $require = undef
+    $_require = undef
   }
 
   validate_absolute_path($name)
@@ -27,7 +27,7 @@ define python::local(
     ensure  => $ensure,
     content => "${version}\n",
     replace => true,
-    require => $require
+    require => $_require
   }
 
 }

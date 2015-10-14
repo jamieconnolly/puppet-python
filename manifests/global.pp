@@ -12,9 +12,9 @@ class python::global(
 
   if $version != 'system' {
     ensure_resource('python::version', $version)
-    $require = Python::Version[$version]
+    $_require = Python::Version[$version]
   } else {
-    $require = undef
+    $_require = undef
   }
 
   file { "${python::pyenv::prefix}/version":
@@ -23,7 +23,7 @@ class python::global(
     mode    => '0644',
     content => "${version}\n",
     replace => true,
-    require => $require
+    require => $_require
   }
 
 }
